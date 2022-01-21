@@ -1,14 +1,20 @@
+const path = require('path')
+const webpack = require('webpack')
+
 module.exports = {
-  devtool: 'cheap-module-source-map',
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-    ],
-  },
+  mode: 'development',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
   },
+  devServer: {
+    port: 3000,
+    static: path.join(__dirname, 'build'),
+    open: true,
+  },
+  devtool: 'cheap-module-source-map',
+  plugins: [
+    new webpack.DefinePlugin({
+      ENV: JSON.stringify('development'),
+    }),
+  ],
 }
